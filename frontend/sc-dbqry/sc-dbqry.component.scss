@@ -1,0 +1,31 @@
+#custom-navbar .nav-item {  
+	-ms-flex-preferred-size: 0;  
+	flex-basis: 0;  
+	-webkit-box-flex: 1;  
+	-ms-flex-positive: 1;  
+	flex-grow: 1;  
+	max-width: 100%;  
+	text-align: center;
+	background: #ccc;
+}
+
+.box {
+	background: white;
+	border: 1px solid #dddddd;
+	border-radius: 4px;
+	padding: 5px;
+}
+
+.link-lookup {
+    cursor: pointer;
+    color: #0000DD !important;
+    text-decoration: underline !important;
+}
+
+/*.link-lookup:hover {
+    color: #0000FF;
+}
+
+.link-lookup:visited {
+    color: #000088;
+}*/

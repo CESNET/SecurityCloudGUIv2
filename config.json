@@ -1,0 +1,13 @@
+{
+    "dependencies": {
+        "npm": "deps/package.json",
+        "ngc": "deps/.angular-cli.json",
+        "pip": "deps/requirements.txt"
+    },
+    "module": {
+        "class": "SecurityCloudModule",
+        "file": "sc.module.ts",
+        "frontend": "frontend",
+        "backend": "backend"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "dependencies": {
+        "dygraphs": "^2.0.0"
+    },
+    "devDependencies": {}
+}

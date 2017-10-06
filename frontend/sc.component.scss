@@ -1,0 +1,17 @@
+.frame {
+    width: 100%;
+    height: calc(100vh - 5em - 65px);
+    border: none;
+}
+
+.white_text {
+    color: #FFF;
+}
+
+.chnls-btn-group {
+    width: 100%;
+}
+
+.chnls-btn-group>button {
+    width: 50%;
+}
