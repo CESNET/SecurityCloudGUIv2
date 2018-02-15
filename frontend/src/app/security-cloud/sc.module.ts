@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthGuard } from 'app/utils/auth.guard';
-import { SafePipe, SafePipeModule } from 'app/utils/safe.pipe';
 
 import { SecurityCloudComponent, ScWorkbenchComponent } from './sc.component';
 import { ScGraphComponent } from './sc-graph/sc-graph.component';
@@ -28,6 +27,7 @@ const routes: Routes = [{
     component: SecurityCloudComponent,
     canActivate: [AuthGuard],
     data: {
+		basepath: true,
         role: 10,
         name: 'Security Cloud',
         description: 'Distributed, highly available IP flow record collector.',
@@ -57,9 +57,8 @@ const routes: Routes = [{
     imports: [
         CommonModule,
         FormsModule,
-        SafePipeModule,
         RouterModule.forChild(routes),
-        NgbModule,
+        NgbModule.forRoot(),
     ],
     declarations: [
         SecurityCloudComponent,
@@ -78,8 +77,9 @@ const routes: Routes = [{
         ScDeleteModalComponent,
         ScDbqryIplookupComponent
     ],
-    providers: [
-        SafePipe
-    ]
+	exports : [
+		SecurityCloudComponent,
+		RouterModule
+	]
 })
 export class SecurityCloudModule { }
