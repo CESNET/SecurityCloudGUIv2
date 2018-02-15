@@ -1,6 +1,4 @@
-from liberouterapi import auth
-from liberouterapi import role
-from liberouterapi import config
+from liberouterapi import auth, role, config
 from flask import request
 import json
 import socket

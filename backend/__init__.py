@@ -1,6 +1,6 @@
 from backports import configparser
 from liberouterapi import app, config
-from ..module import Module
+from liberouterapi.modules.module import Module
 
 config.load(path = __path__[0] + '/config.ini')
 
