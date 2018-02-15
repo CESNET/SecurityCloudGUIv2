@@ -7,7 +7,8 @@
     "module": {
         "class": "SecurityCloudModule",
         "file": "sc.module.ts",
-        "frontend": "frontend",
-        "backend": "backend"
+        "frontend": "frontend/src/app/security-cloud",
+        "backend": "backend",
+		"name": "security-cloud"
     }
 }
