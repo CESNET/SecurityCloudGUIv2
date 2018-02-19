@@ -12,7 +12,7 @@
     <div class="modal-body">
         <div class="row" *ngIf="thumbnails != null">
             <div class="col-md-4 mb-4" *ngFor="let x of thumbnails;let i=index">
-                <div class="card hand-cursor" (click)="changeSelectedVar(i); d('reason')">
+                <div class="card border-dark hand-cursor" (click)="changeSelectedVar(i); d('reason')">
                     <h5 class="card-header">
                         {{ x.label }}
                     </h5>

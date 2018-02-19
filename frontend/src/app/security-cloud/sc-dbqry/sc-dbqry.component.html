@@ -1,7 +1,7 @@
 <sc-dbqry-iplookup #IPLookup></sc-dbqry-iplookup>
 
-<div class="card">
-    <h4 class="card-header card-primary card-inverse text-center">
+<div class="card border-primary">
+    <h4 class="card-header border-primary bg-primary text-white text-center">
         Database Query
     </h4>
     
@@ -9,7 +9,7 @@
         <div class="row">
             <!-- Filter textarea -->
             <div class="col-lg-6">
-                <div class="card card-outline-secondary">
+                <div class="card border-dark">
                     <h6 class="card-header text-center">
                         Filter
                     </h6>
@@ -17,12 +17,41 @@
                     <div class="card-body">
                         <textarea class="form-control" rows="5" [(ngModel)]="filter"></textarea>
                     </div>
+					
+					<div class="card-footer">
+						<div class="row">
+							<div class="col-sm-4">
+								<button class="btn btn-outline-dark btn-block">
+									Save filter
+								</button>
+							</div>
+							<div class="col-sm-4">
+								<div ngbDropdown class="d-inline-block btn-block">
+									<button class="btn btn-outline-dark btn-block" ngbDropdownToggle>
+										Use saved filter
+									</button>
+									
+									<div class="dropdown-menu">
+										<button class="dropdown-item" *ngFor="let p of linkList"
+											(click)="changeProfile(p.path)">
+											{{ p.name }}
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<button class="btn btn-outline-dark btn-block">
+									Clear filter
+								</button>
+							</div>
+						</div>
+					</div>
                 </div>
             </div>
             
             <!-- Options -->
             <div class="col-lg-6">
-                <div class="card card-outline-secondary">
+                <div class="card border-dark">
                     <ngb-tabset justify="center" (tabChange)="beforeTabChange($event)">
                         <ngb-tab id="custom-navbar" title="Fast Options" id="FastOptions">
                             <ng-template ngbTabContent>
@@ -68,6 +97,7 @@
                                             <div class="col-sm-2 col-xs-4">
                                                 <b>Direction:</b>
                                             </div>
+											
                                             <div class="col-sm-4 col-xs-8">
                                                 <select class="form-control"
                                                     [(ngModel)]="selectedOrderDir">

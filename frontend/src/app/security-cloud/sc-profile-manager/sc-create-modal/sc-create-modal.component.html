@@ -99,16 +99,16 @@
             </div>
             
             <div>
-                <button class="btn btn-success" type="submit" [disabled]="!f.valid">
+                <button class="btn btn-outline-success" type="submit" [disabled]="!f.valid">
                     Create profile
                 </button>
-                <button class="btn btn-default" (click)="d('reason')">Cancel</button>
+                <button class="btn btn-outline-dark" (click)="d('reason')">Cancel</button>
             </div>
         </form>
     </div>
 </ng-template>
 
-<button type="button" class="btn btn-success btn-middle"
+<button type="button" class="btn btn-outline-success btn-middle"
     (click)="openModal()">
 Create subprofile
 </button>

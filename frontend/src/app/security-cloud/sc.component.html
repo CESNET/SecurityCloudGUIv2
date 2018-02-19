@@ -21,14 +21,14 @@
         
         <div class="col-xl-2">
             <!-- other actions -->
-            <div class="card mb-4">
-                <h4 class="card-header card-primary card-inverse text-center">
+            <div class="card border-primary mb-4">
+                <h4 class="card-header border-primary bg-primary text-white text-center">
                     Other Action
                 </h4>
                 
                 <div class="card-body">
                     <div ngbDropdown class="d-inline-block btn-block">
-                        <button class="btn btn-outline-secondary btn-block" ngbDropdownToggle>
+                        <button class="btn btn-outline-dark btn-block" ngbDropdownToggle>
                             Change profile
                         </button>
                         
@@ -42,15 +42,15 @@
                 </div>
                 
                 <div class="card-footer">
-                    <button class="btn btn-outline-secondary btn-block" (click)="openNewTab()">
+                    <button class="btn btn-outline-dark btn-block" (click)="openNewTab()">
                         New Tab
                     </button>
                 </div>
             </div>
             
             <!-- Channel picker -->
-            <div class="card">
-                <h4 class="card-header card-primary card-inverse text-center">
+            <div class="card border-primary">
+                <h4 class="card-header border-primary bg-primary text-white text-center">
                     Channels
                 </h4>
                 
@@ -71,10 +71,10 @@
                 
                 <div class="card-footer">
                     <div class="btn-group chnls-btn-group">
-                        <button class="btn btn-outline-secondary" (click)="setAllChannels(true)">
+                        <button class="btn btn-outline-dark" (click)="setAllChannels(true)">
                             All
                         </button>
-                        <button class="btn btn-outline-secondary" (click)="setAllChannels(false)">
+                        <button class="btn btn-outline-dark" (click)="setAllChannels(false)">
                             None
                         </button>
                     </div>

@@ -15,6 +15,18 @@ import { AppConfig } from '../modules/AppConfig';
 // Services
 import { ScDbqryService } from './sc-dbqry.service';
 
+const BTN_QUERY_READY = {
+	label: 'Start query',
+	querying: true,
+	style: "btn btn-outline-dark btn-block"
+};
+
+const BTN_QUERY_KILL = {
+	label: 'Stop query',
+	querying: true,
+	style: "btn btn-outline-danger btn-block"
+}
+
 @Component({
     selector: 'sc-dbqry',
     templateUrl: './sc-dbqry.component.html',
@@ -53,11 +65,7 @@ export class ScDbqryComponent implements OnInit, OnChanges {
     customOpts: string = null;
     fancy: boolean; ///< Whether output will be displayed as a table or simple text
 
-    btnQuery = {
-        label: 'Start query',
-        querying: true,
-        style: 'btn btn-outline-secondary btn-block'
-    };
+    btnQuery = BTN_QUERY_READY;
     instanceID: string = null; ///< Identifier of the browser tab
     progressStyle; ///< Styler of progress bar
     timer = null; ///< Handle for setInterval trigger
@@ -104,18 +112,10 @@ export class ScDbqryComponent implements OnInit, OnChanges {
      */
     btnQueryChange() {
         if (this.btnQuery.querying) {
-            this.btnQuery = {
-                label: 'Kill query',
-                querying: false,
-                style: 'btn btn-danger btn-block'
-            };
+            this.btnQuery = BTN_QUERY_KILL;
         }
         else {
-            this.btnQuery = {
-                label: 'Start query',
-                querying: true,
-                style: 'btn btn-outline-secondary btn-block'
-            };
+            this.btnQuery = BTN_QUERY_READY;
         }
     }
 
