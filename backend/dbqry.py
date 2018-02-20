@@ -64,7 +64,7 @@ class Dbqry():
             channels = ' '.join(chnls)
 
             # Create command and backup
-            cmd = MPICH_CMD + ' ' + MPICH_ARGS + ' -env OMP_NUM_THREADS 4 ' + FDISTDUMP_CMD + ' '
+            cmd = MPICH_CMD + ' ' + MPICH_ARGS + ' ' + FDISTDUMP_CMD + ' '
             cmdback = cmd + filter + ' ' + args + ' ' + channels
 
             # Following replacement ensures correct frontend view processing
@@ -82,7 +82,7 @@ class Dbqry():
             channels = ' '.join(chnls)
 
             # Create command and backup
-            cmd = FDISTDUMP_HA_CMD + ' ' + channels + ' ' + MPICH_CMD + ' -env OMP_NUM_THREADS 4 '
+            cmd = FDISTDUMP_HA_CMD + ' ' + channels + ' ' + MPICH_CMD + ' '
             cmd += FDISTDUMP_CMD + ' '
             cmdback = cmd + filter + ' ' + args
 
@@ -159,6 +159,5 @@ class Dbqry():
         p['fh'].close()
         
         self.__removeFile('/tmp/fdistout.' + sessionID + '.' + instanceID + '.txt')
-        self.__removeFile('/tmp/' + sessionID + '.' + instanceID + '.json')
-
+        self.__removeFile('/tmp/' + sessionID + '.' + instanceID + '.json')        
         return json.dumps({'out': str(out), 'err': str(err)})
