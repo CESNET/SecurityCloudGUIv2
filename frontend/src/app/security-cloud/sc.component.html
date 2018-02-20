@@ -32,7 +32,7 @@
                             Change profile
                         </button>
                         
-                        <div class="dropdown-menu">
+                        <div ngbDropdownMenu> <!-- class="dropdown-menu" -->
                             <button class="dropdown-item" *ngFor="let p of linkList"
                                 (click)="changeProfile(p.path)">
                                 {{ p.name }}
