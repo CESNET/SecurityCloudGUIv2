@@ -225,3 +225,4 @@ pip-log.txt
 ###############
 /frondend/node_modules
 upload.bat
+backend/config.ini
