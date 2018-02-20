@@ -65,7 +65,7 @@ class Dbqry():
 
             # Create command and backup
             cmd = MPICH_CMD + ' ' + MPICH_ARGS + ' ' + FDISTDUMP_CMD + ' '
-            cmdback = cmd + filter + ' ' + args + ' ' + channels
+            cmdback = cmd + ' -f ' + filter + ' ' + args + ' ' + channels
 
             # Following replacement ensures correct frontend view processing
             repl = '--output-format=csv --output-addr-conv=str --output-tcpflags-conv=str '
@@ -84,7 +84,7 @@ class Dbqry():
             # Create command and backup
             cmd = FDISTDUMP_HA_CMD + ' ' + channels + ' ' + MPICH_CMD + ' '
             cmd += FDISTDUMP_CMD + ' '
-            cmdback = cmd + filter + ' ' + args
+            cmdback = cmd + ' -f ' + filter + ' ' + args
 
             # Following replacement ensures correct frontend view processing
             repl = '--output-format=csv --output-addr-conv=str --output-tcpflags-conv=str '
