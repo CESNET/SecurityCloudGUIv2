@@ -14,18 +14,19 @@ import { AppConfig } from '../modules/AppConfig';
 
 // Services
 import { ScDbqryService } from './sc-dbqry.service';
+import { ScDbqryFilterComponent } from './sc-dbqry-filter/sc-dbqry-filter.component';
 
 const BTN_QUERY_READY = {
-	label: 'Start query',
-	querying: true,
-	style: "btn btn-outline-dark btn-block"
+    label: 'Start query',
+    querying: true,
+    style: "btn btn-outline-dark btn-block"
 };
 
 const BTN_QUERY_KILL = {
-	label: 'Stop query',
-	querying: true,
-	style: "btn btn-outline-danger btn-block"
-}
+    label: 'Stop query',
+    querying: false,
+    style: "btn btn-outline-danger btn-block"
+};
 
 @Component({
     selector: 'sc-dbqry',
@@ -41,7 +42,7 @@ export class ScDbqryComponent implements OnInit, OnChanges {
     @Input() config: AppConfig;
     @Input() filter: string; ///< Filter textarea model
     @Input() channels: ChannelSettings[] = null;
-    @ViewChild('IPLookup') iplookupComponent;
+    @ViewChild('DbqryFilter') filterComponent : ScDbqryFilterComponent;
 
     limitto = [ ///< LimitTo dropdown model
         {value: '-l 10', desc: '10 records'},
@@ -161,7 +162,7 @@ export class ScDbqryComponent implements OnInit, OnChanges {
      *  @return Formatted string
      */
     getFilter(): string {
-        return this.filter;
+        return this.filterComponent.getFilter();
     }
 
     /**
@@ -244,7 +245,7 @@ export class ScDbqryComponent implements OnInit, OnChanges {
             result += ' -o ' + this.selectedOrderBy;
 
             if (this.selectedOrderDir !== '') {
-                result += this.selectedOrderDir;
+                result += "#" + this.selectedOrderDir;
             }
         }
 

@@ -1,0 +1,39 @@
+<div class="card border-dark">
+    <h6 class="card-header text-center">
+        Filter
+    </h6>
+    
+    <div class="card-body">
+        <textarea class="form-control" rows="5" [(ngModel)]="filter"
+        placeholder="Example: ip 127.0.0.1 and proto tcp and bytes > 1024"></textarea>
+    </div>
+    
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-sm-4">
+                <button class="btn btn-outline-dark btn-block">
+                    Save filter
+                </button>
+            </div>
+            <div class="col-sm-4">
+                <div ngbDropdown class="d-inline-block btn-block">
+                    <button class="btn btn-outline-dark btn-block" ngbDropdownToggle>
+                        Use saved filter
+                    </button>
+                    
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" *ngFor="let p of linkList"
+                            (click)="changeProfile(p.path)">
+                            {{ p.name }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <button class="btn btn-outline-dark btn-block">
+                    Clear filter
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
