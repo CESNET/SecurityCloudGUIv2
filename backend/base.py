@@ -13,6 +13,7 @@ from .dbqry import Dbqry, DbqryError
 from .stats import Stats as Statistics
 from .error import SCGUIException
 from .notify import Notifier, NotifierError
+from .filter import Filter, FilterError
 
 IPFIXCOL_CHECKER = config['scgui'].get('ipfixcol_filter_check', 'ipfixcol-filter-check')
 
@@ -250,3 +251,41 @@ def getConfForFrontend():
     result['historicData'] = config['scgui'].getboolean('historic_data', False)
     result['useLocalTime'] = config['scgui'].getboolean('use_local_time', True)
     return json.dumps(result)
+
+def loadFilters():
+    """
+    Load filter expressions that were stored for later use.
+    """
+    try:
+        fstorage = Filter()
+        return fstorage.getFiltersAsJSON()
+    except FilterError as e:
+        raise SCGUIException("FilterError: " + str(e))
+
+@auth.required(role.Role.admin)
+def saveFilter():
+    """
+    Save filter expression to the database.
+    """
+    req = request.get_json()
+    
+    try:
+        fstorage = Filter()
+        fstorage.saveFilter(req['name'], req['value'])
+        return fstorage.getFiltersAsJSON()
+    except FilterError as e:
+        raise SCGUIException("FilterError: " + str(e))
+
+@auth.required(role.Role.admin)
+def deleteFilter():
+    """
+    Remove filter from the database.
+    """
+    req = request.args.to_dict()
+    
+    try:
+        fstorage = Filter()
+        fstorage.deleteFilter(req['name'], req['value'])
+        return fstorage.getFiltersAsJSON()
+    except FilterError as e:
+        raise SCGUIException("FilterError: " + str(e))

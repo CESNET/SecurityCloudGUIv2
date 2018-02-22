@@ -1,36 +1,67 @@
+<ng-template #FilterDeleteModal let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">
+            Delete filter
+        </h4>
+        
+        <button type="button" class="close" aria-label="Close" (click)="d('reason')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        Are you sure you want to delete this filter?
+    </div>
+    
+    <div class="modal-footer">
+        <button class="btn btn-outline-danger" (click)="deleteFilter();d('r');">
+            Delete
+        </button>
+        
+        <button class="btn btn-outline-dark" (click)="d('reason')">
+            Close
+        </button>
+    </div>
+</ng-template>
+
 <div class="card border-dark">
     <h6 class="card-header text-center">
         Filter
     </h6>
     
     <div class="card-body">
-        <textarea class="form-control" rows="5" [(ngModel)]="filter"
+        <textarea class="form-control" rows="5" [(ngModel)]="filter.value"
         placeholder="Example: ip 127.0.0.1 and proto tcp and bytes > 1024"></textarea>
     </div>
     
     <div class="card-footer">
         <div class="row">
             <div class="col-sm-4">
-                <button class="btn btn-outline-dark btn-block">
-                    Save filter
-                </button>
+                <sc-dbqry-filter-save [filter]="filter"
+                    (stateChange)="handleSaveFilterConfirmation($event)">
+                </sc-dbqry-filter-save>
             </div>
             <div class="col-sm-4">
                 <div ngbDropdown class="d-inline-block btn-block">
-                    <button class="btn btn-outline-dark btn-block" ngbDropdownToggle>
+                    <button class="btn btn-outline-dark btn-block" ngbDropdownToggle [disabled]="filterDB == []">
                         Use saved filter
                     </button>
                     
-                    <div class="dropdown-menu">
-                        <button class="dropdown-item" *ngFor="let p of linkList"
-                            (click)="changeProfile(p.path)">
-                            {{ p.name }}
-                        </button>
+                    <div ngbDropdownMenu>
+                        <div class="dropdown-item hz" *ngFor="let f of filterDB">
+                            <button class="btn btn-light"
+                                (click)="applyFilter(f.value)">
+                                {{ f.name }}
+                            </button>
+                            <button class="btn btn-outline-danger" (click)="markForDeletion(f.name, f.value);modalService.open(FilterDeleteModal);">
+                            T
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-4">
-                <button class="btn btn-outline-dark btn-block">
+                <button class="btn btn-outline-dark btn-block" (click)="clearFilter()">
                     Clear filter
                 </button>
             </div>

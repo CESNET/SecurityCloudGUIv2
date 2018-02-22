@@ -22,6 +22,7 @@ import { ScCreateModalComponent } from './sc-profile-manager/sc-create-modal/sc-
 import { ScDeleteModalComponent } from './sc-profile-manager/sc-delete-modal/sc-delete-modal.component';
 import { ScDbqryIplookupComponent } from './sc-dbqry/sc-dbqry-iplookup/sc-dbqry-iplookup.component';
 import { ScDbqryFilterComponent } from './sc-dbqry/sc-dbqry-filter/sc-dbqry-filter.component';
+import { ScDbqryFilterSaveComponent } from './sc-dbqry/sc-dbqry-filter/sc-dbqry-filter-save/sc-dbqry-filter-save.component';
 
 const routes: Routes = [{
     path: 'security-cloud',
@@ -77,7 +78,8 @@ const routes: Routes = [{
         ScCreateModalComponent,
         ScDeleteModalComponent,
         ScDbqryIplookupComponent,
-        ScDbqryFilterComponent
+        ScDbqryFilterComponent,
+        ScDbqryFilterSaveComponent
     ],
 	exports : [
 		SecurityCloudComponent,

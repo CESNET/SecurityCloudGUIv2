@@ -32,6 +32,11 @@ scgui_bp.add_url_rule('/query/progress', view_func = getProgress, methods = ['GE
 # scgui/query/lookup
 scgui_bp.add_url_rule('/query/lookup', view_func = getIpLookup, methods = ['GET'])
 
+# scgui/query/lookup
+scgui_bp.add_url_rule('/query/filter', view_func = loadFilters, methods = ['GET'])
+scgui_bp.add_url_rule('/query/filter', view_func = saveFilter, methods = ['POST'])
+scgui_bp.add_url_rule('/query/filter', view_func = deleteFilter, methods = ['DELETE'])
+
 # scgui/graph/
 scgui_bp.add_url_rule('/graph', view_func = getGraph, methods = ['GET'])
 
