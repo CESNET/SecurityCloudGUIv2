@@ -4,6 +4,7 @@ import { Routes, RouterModule} from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 import { AuthGuard } from 'app/utils/auth.guard';
 
@@ -29,7 +30,7 @@ const routes: Routes = [{
     component: SecurityCloudComponent,
     canActivate: [AuthGuard],
     data: {
-		basepath: true,
+        basepath: true,
         role: 10,
         name: 'Security Cloud',
         description: 'Distributed, highly available IP flow record collector.',
@@ -61,6 +62,7 @@ const routes: Routes = [{
         FormsModule,
         RouterModule.forChild(routes),
         NgbModule.forRoot(),
+        MultiselectDropdownModule
     ],
     declarations: [
         SecurityCloudComponent,

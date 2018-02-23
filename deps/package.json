@@ -1,5 +1,6 @@
 {
     "dependencies": {
+        "angular-2-dropdown-multiselect": "^1.6.3",
         "dygraphs": "^2.0.0"
     },
     "devDependencies": {}
