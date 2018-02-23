@@ -76,25 +76,37 @@
                                             <div class="col-sm-2 col-xs-4">
                                                 <b>Output:</b>
                                             </div>
-                                            <div class="col-sm-4 col-xs-8">
-                                                <select class="form-control"
-                                                    [(ngModel)]="selectedOutputFmt">
-                                                    <option value="pretty">
-                                                        Pretty
-                                                    </option>
-                                                    <option value="csv">
-                                                        Csv
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-2 col-xs-4">
-                                                &nbsp;
-                                            </div>
-                                            <div class="col-sm-4 col-xs-8">
-                                                <label>
+                                            
+                                            <div class="col-sm-10 col-xs-5">
+                                                <div class="btn-group btn-group-toggle" ngbRadioGroup name="OutputProcessing" [(ngModel)]="selectedOutputProcessing">
+                                                    <label ngbButtonLabel class="btn-outline-secondary">
+                                                        <input ngbButton type="radio" value="raw"> Raw
+                                                    </label>
+                                                    <label ngbButtonLabel class="btn-outline-secondary">
+                                                        <input ngbButton type="radio" value="kmb"> K,M,B
+                                                    </label>
+                                                    <label ngbButtonLabel class="btn-outline-secondary">
+                                                        <input ngbButton type="radio" value="kimibi"> Ki,Mi,Bi
+                                                    </label>
+                                                </div>
+                                                
+                                                <label class="btn btn-outline-dark">
                                                     <input type="checkbox" [(ngModel)]="nosummary">
                                                     No summary
                                                 </label>
+                                                
+                                                <label class="btn btn-outline-dark">
+                                                    <input type="checkbox" [(ngModel)]="customfields">
+                                                    Custom fields
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center" *ngIf="customfields">
+                                            <div class="col-sm-2 col-xs-4">
+                                                <b>Custom Fields:</b>
+                                            </div>
+                                            <div class="col-sm-10 col-xs-8">
+                                                <ss-multiselect-dropdown *ngIf="fieldsMultiselectOptions != null" [options]="fieldsMultiselectOptions" [settings]="fieldsMultiselectSettings" [(ngModel)]="fieldsMultiselectSelected"></ss-multiselect-dropdown>
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +146,7 @@
             <div class="progress-bar" role="progressbar" [ngStyle]="progressStyle"></div>
         </div>
         
-        <ngb-tabset *ngIf="fancy && toPrint_stdout != null">
+        <ngb-tabset *ngIf="toPrint_stdout != null">
             <ngb-tab title="Formatted Output">
                 <ng-template ngbTabContent>
                     <div class="box mb-4" *ngFor="let section of toPrint_stdout">
@@ -163,14 +175,12 @@
                     </div>
                 </ng-template>
             </ngb-tab>
-            <ngb-tab title="Raw Output">
+            <ngb-tab title="CSV Output">
                 <ng-template ngbTabContent>
                     <pre class="box">{{ toPrint_stdoutRaw }}</pre>
                 </ng-template>
             </ngb-tab>
         </ngb-tabset>
-        
-        <pre class="box" *ngIf="!fancy && toPrint_stdout != null">{{ toPrint_stdout }}</pre>
         
         <pre class="box" *ngIf="toPrint_stderr != null">{{ toPrint_stderr }}</pre>
     </div>
