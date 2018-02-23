@@ -45,12 +45,13 @@
 
             <div class="col-xl-2 col-lg-6 col-md-6">
                 <form class="form-inline">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input class="form-control" placeholder="YYYY-MM-DD" name="dp"
-                                [(ngModel)]="pickerDate" ngbDatepicker #d="ngbDatepicker"
-                                (ngModelChange)="pickerChanged($event)">
-                            <div class="input-group-addon cursor-pointer" (click)="d.toggle()">
+                    <label class="sr-only" for="DatepickerInputGroup">Datepicker</label>
+                    <div class="input-group">
+                        <input class="form-control" id="DatepickerInputGroup" placeholder="YYYY-MM-DD" name="dp"
+                            [(ngModel)]="pickerDate" ngbDatepicker #d="ngbDatepicker"
+                            (ngModelChange)="pickerChanged($event)">
+                        <div class="input-group-append cursor-pointer" (click)="d.toggle()">
+                            <div class="input-group-text">
                                 <i class="fa fa-calendar"></i>
                             </div>
                         </div>
