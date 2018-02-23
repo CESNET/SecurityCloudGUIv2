@@ -22,10 +22,25 @@
     text-decoration: underline !important;
 }
 
-/*.link-lookup:hover {
-    color: #0000FF;
-}
+:host ::ng-deep ss-multiselect-dropdown { /* https://github.com/softsimon/angular-2-dropdown-multiselect/issues/379 */
+	padding: 0;
 
-.link-lookup:visited {
-    color: #000088;
-}*/
+	& .dropdown {
+		width: 100%;
+
+		> ul.dropdown-menu {
+			padding: initial 5px;
+			border-radius: 5px;
+			width: 100%;
+		}
+	}
+
+	& li.dropdown-item.active > a,
+	& li.dropdown-item:active > a {
+		color: white;
+	}
+
+	& .input-group-addon {
+		padding: 5px;
+	}
+}
