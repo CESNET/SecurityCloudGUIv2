@@ -49,9 +49,9 @@
                                                 <b>Order by:</b>
                                             </div>
                                             <div class="col-sm-4 col-xs-8">
-                                                <select *ngIf="fields != null"
+                                                <select *ngIf="fieldsOrderby != null"
                                                 class="form-control" [(ngModel)]="selectedOrderBy">
-                                                    <option *ngFor="let x of fields"
+                                                    <option *ngFor="let x of fieldsOrderby"
                                                         [value]="x.name" [title]="x.hint">
                                                         {{x.name}}
                                                     </option>

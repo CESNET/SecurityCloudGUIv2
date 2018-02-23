@@ -57,7 +57,10 @@ export class ScDbqryComponent implements OnInit, OnChanges {
         {value: '-l 10000', desc: '10000 records'}
     ];
     selectedLimit = '-l 10'; ///< Selection index to limitto
-    fields = null; ///< Aggregation model
+    //fields = null; ///< Aggregation model
+    fieldsAggregate = null;
+    fieldsOrderby = null;
+    fieldsPrint = null;
     selectedOrderBy = '';
     selectedOrderDir = '';
     selectedAggregation = '';
@@ -424,13 +427,18 @@ export class ScDbqryComponent implements OnInit, OnChanges {
      */
     processFieldsData(data: any) {
         /* NOTE: What data look like
-        [
+        {
+        "aggregate" : [
             {'name': '...', 'hint': '...'}
         ]
+        "orderby" : ...,
+        "print" : ...
+        }
         */
-        data.unshift({name: 'Nothing', hint: ''});
-        this.fields = data;
-        this.selectedOrderBy = this.fields[0].name;
+        this.fieldsAggregate = data['aggregate'];
+        this.fieldsOrderby = data['orderby'];
+        this.fieldsPrint = data['print'];
+        this.selectedOrderBy = this.fieldsOrderby[0].name;
     }
 
     /**
@@ -507,7 +515,7 @@ export class ScDbqryComponent implements OnInit, OnChanges {
             const prefix = term.substr(0, b).replace(/ /g, '');
             const suffix = term.substr(b, term.length - b).replace(/ /g, '');
 
-            const result = term.length < 1 ? [] : this.fields.filter(v =>
+            const result = term.length < 1 ? [] : this.fieldsAggregate.filter(v =>
                 v.name.toLowerCase().indexOf(suffix) > -1
             ).slice(0, 10);
 
