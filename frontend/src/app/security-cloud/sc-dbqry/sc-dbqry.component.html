@@ -90,15 +90,30 @@
                                                     </label>
                                                 </div>
                                                 
-                                                <label class="btn btn-outline-dark">
-                                                    <input type="checkbox" [(ngModel)]="nosummary">
-                                                    No summary
-                                                </label>
+                                                <!--div class="form-check form-check-inline">
+                                                    <label class="btn btn-outline-dark">
+                                                        <input type="checkbox" [(ngModel)]="nosummary">
+                                                        No summary
+                                                    </label>
+                                                </div-->
+                                                <div class="btn-group btn-group-toggle">
+                                                    <label class="btn-outline-secondary" ngbButtonLabel>
+                                                        <input type="checkbox" class="showCheckBox" ngbButton [(ngModel)]="nosummary"> No summary
+                                                    </label>
+                                                </div>
                                                 
-                                                <label class="btn btn-outline-dark">
-                                                    <input type="checkbox" [(ngModel)]="customfields">
-                                                    Custom fields
-                                                </label>
+                                                <div class="btn-group btn-group-toggle">
+                                                    <label class="btn-outline-secondary" ngbButtonLabel>
+                                                        <input type="checkbox" class="showCheckBox" ngbButton [(ngModel)]="customfields"> Custom fields
+                                                    </label>
+                                                </div>
+                                                
+                                                <!--div class="form-check form-check-inline">
+                                                    <label class="btn btn-outline-dark">
+                                                        <input type="checkbox" [(ngModel)]="customfields">
+                                                        Custom fields
+                                                    </label>
+                                                </div-->
                                             </div>
                                         </div>
                                         <div class="row align-items-center" *ngIf="customfields">
@@ -142,7 +157,7 @@
     <div class="card-footer">
         <pre class="box" *ngIf="toPrint_command != null"> {{ toPrint_command }} </pre>
 
-        <div class="progress" *ngIf="timer != null && !btnQuery.querying">
+        <div class="progress" *ngIf="btnQuery.queryInProgress">
             <div class="progress-bar" role="progressbar" [ngStyle]="progressStyle"></div>
         </div>
         

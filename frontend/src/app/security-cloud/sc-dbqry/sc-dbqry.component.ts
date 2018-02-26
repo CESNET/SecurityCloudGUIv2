@@ -20,13 +20,13 @@ import { ScDbqryIplookupComponent } from './sc-dbqry-iplookup/sc-dbqry-iplookup.
 
 const BTN_QUERY_READY = {
     label: 'Start query',
-    querying: true,
+    queryInProgress: false,
     style: "btn btn-outline-dark btn-block"
 };
 
 const BTN_QUERY_KILL = {
     label: 'Stop query',
-    querying: false,
+    queryInProgress: true,
     style: "btn btn-outline-danger btn-block"
 };
 
@@ -137,11 +137,11 @@ export class ScDbqryComponent implements OnInit, OnChanges {
      *  the user.
      */
     btnQueryChange() {
-        if (this.btnQuery.querying) {
-            this.btnQuery = BTN_QUERY_KILL;
+        if (this.btnQuery.queryInProgress) {
+            this.btnQuery = BTN_QUERY_READY;
         }
         else {
-            this.btnQuery = BTN_QUERY_READY;
+            this.btnQuery = BTN_QUERY_KILL;
         }
     }
 
@@ -150,12 +150,12 @@ export class ScDbqryComponent implements OnInit, OnChanges {
      *
      *  @param [in] event
      *
-     *  @details If btnQuery.querying is true, then filter, arguments and channels are formatted as
+     *  @details If btnQuery.queryInProgress is true, then filter, arguments and channels are formatted as
      *  strings and are send to backend as query parameters. Otherwise, message for killing query
      *  is send. Proper response handles are registered.
      */
     btnQueryClick(event: any) {
-        if (this.btnQuery.querying) {
+        if (!this.btnQuery.queryInProgress) {
             const filter: string = this.getFilter();
             let timeArg : string = this.getArgTime();
             let args: string;
@@ -434,8 +434,10 @@ export class ScDbqryComponent implements OnInit, OnChanges {
         };
 
         if (parseInt(data['total'], 10) === 100) {
-            this.btnQueryChange();
-            this.getQueryData();
+            if (this.btnQuery.queryInProgress) {
+                this.btnQueryChange();
+                this.getQueryData();
+            }
         }
         else {
             this.api.queryProgress(this.instanceID).subscribe(
