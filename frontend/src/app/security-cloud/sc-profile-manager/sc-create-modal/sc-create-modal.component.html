@@ -9,8 +9,9 @@
         </button>
     </div>
 
-    <div class="modal-body">
-        <form #f="ngForm" (ngSubmit)="createProfile()">
+    
+    <form #f="ngForm" (ngSubmit)="createProfile()">
+        <div class="modal-body">
             <div class="row align-items-center mb-2">
                 <div class="col-sm-2">
                     <b>Name:</b>
@@ -49,9 +50,11 @@
                         <input type="number" class="form-control" placeholder="Enter number of channels"
                             [(ngModel)]="channelCount" required pattern="[1-9][0-9]*"
                             name="channelCount">
-                        <span class="input-group-addon" (click)="setNofChannels()">
-                            Set channel count
-                        </span>
+                        <div class="input-group-append cursor-pointer" (click)="setNofChannels()">
+                            <div class="input-group-text">
+                                Set channel count
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -97,15 +100,17 @@
                     </div>
                 </div>
             </div>
-            
+        </div>
+        
+        <div class="modal-footer">
             <div>
                 <button class="btn btn-outline-success" type="submit" [disabled]="!f.valid">
                     Create profile
                 </button>
                 <button class="btn btn-outline-dark" (click)="d('reason')">Cancel</button>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </ng-template>
 
 <button type="button" class="btn btn-outline-success btn-middle"
