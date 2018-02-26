@@ -15,8 +15,14 @@ class NotifierError(Exception):
 class Notifier():
     def __init__(self):
         self.pid = None
-        with open(IPFIXCOL_PIDFILE, 'r') as fh:
-            self.pid = fh.read()
+        try:
+            with open(IPFIXCOL_PIDFILE, 'r') as fh:
+                self.pid = fh.read()
+        except Exception as e:
+            print ("WARNING: " + str(e))
+
+    def pidFound(self):
+        return (self.pid is not None)
 
     def notifyIpfixcol(self):
         """
@@ -24,10 +30,8 @@ class Notifier():
         ipfixcol update file.
         """
         if SINGLE_MACHINE:
-            if self.pid is not None:
+            if self.pidFound():
                 os.kill(self.pid, signal.SIGUSR1)
-            else:
-                raise NotifierError('Could not find ipfixcol pidfile')
         else:
             # Simply open/close file
             with open(IPFIXCOL_NOTIFY_FILE, 'w') as fh:

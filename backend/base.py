@@ -101,7 +101,7 @@ def createProfile():
 
             if len(alerts) != 0:
                 return json.dumps({'success': False, 'alerts': alerts})
- 
+
         if profiles.createSubprofile(req['profile'], newp):
             profiles.exportXML()
 
@@ -110,7 +110,6 @@ def createProfile():
 
             return json.dumps({'success': True})
 
-        #raise ProfilesError('Cannot create subprofile')
         return json.dumps({'success': False, 'alerts': ['ERROR: Unknown error']})
 
     except KeyError as e:
@@ -121,6 +120,8 @@ def createProfile():
         raise SCGUIException(str(e))
     except NotifierError as e:
         raise SCGUIException(str(e))
+    except Exception as e:
+        raise SCGUIException("Unknown exception: " + str(e))
 
 @auth.required(role.Role.admin)
 def deleteProfile():
@@ -167,13 +168,13 @@ def getQuery():
     except KeyError as e:
         raise SCGUIException('KeyError: ' + str(e))
     except Exception as e:
-        raise SCGUIException('UnknownException: ' + str(e))
+        raise SCGUIException('UnknownException(GetQuery): ' + str(e))
 
 @auth.required(role.Role.user)
 def startQuery():
     req = request.get_json()
     sessionID = request.headers.get('Authorization', None)
-    
+
     try:
         q = Dbqry()
         return q.runQuery(sessionID, req['instanceID'], req['profile'], req['args'], req['filter'], req['channels'])
@@ -190,7 +191,7 @@ def startQuery():
 def killQuery():
     req = request.args.to_dict()
     sessionID = request.headers.get('Authorization', None)
-    
+
     try:
         q = Dbqry()
         q.killQuery(sessionID, req['instanceID'])
@@ -200,20 +201,20 @@ def killQuery():
     except KeyError as e:
         raise SCGUIException('KeyError: ' + str(e))
     except Exception as e:
-        raise SCGUIException('UnknownException: ' + str(e))
+        raise SCGUIException('UnknownException(KillQuery): ' + str(e))
 
 @auth.required(role.Role.user)
 def getProgress():
     req = request.args.to_dict()
     sessionID = request.headers.get('Authorization', None)
-    
+
     try:
         q = Dbqry()
         return q.getProgressJSONString(sessionID, req['instanceID'])
     except KeyError as e:
         raise SCGUIException('KeyError: ' + str(e))
     except Exception as e:
-        raise SCGUIException('UnknownException: ' + str(e))
+        raise SCGUIException('UnknownException(GetProgress): ' + str(e))
 
 @auth.required(role.Role.user)
 def getIpLookup():
@@ -268,7 +269,7 @@ def saveFilter():
     Save filter expression to the database.
     """
     req = request.get_json()
-    
+
     try:
         fstorage = Filter()
         fstorage.saveFilter(req['name'], req['value'])
@@ -282,7 +283,7 @@ def deleteFilter():
     Remove filter from the database.
     """
     req = request.args.to_dict()
-    
+
     try:
         fstorage = Filter()
         fstorage.deleteFilter(req['name'], req['value'])
