@@ -1,0 +1,107 @@
+<div class="container-fluid" *ngIf="profiles == null || config == null">
+    <div class="card">
+        <div class="card-body">
+            DON'T PANIC! Your app is being initialized...
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" *ngIf="profiles && config">
+    <div class="row mb-4">
+        <div class="col-xl-10 col-lg-12">
+            <!-- Graphs -->
+            <sc-graph #GraphComponent [profiles]="profiles"
+                [selectedProfile]="selectedProfile"
+                [time]="time"
+                [config]="config"
+                (timeChange)="handleTimeChangePropagation($event)"
+                [channels]="channels">
+            </sc-graph>
+        </div>
+        
+        <div class="col-xl-2">
+            <!-- other actions -->
+            <div class="card border-primary mb-4">
+                <h4 class="card-header border-primary bg-primary text-white text-center">
+                    Other Action
+                </h4>
+                
+                <div class="card-body">
+                    <div ngbDropdown class="d-inline-block btn-block">
+                        <button class="btn btn-outline-dark btn-block" ngbDropdownToggle>
+                            Change profile
+                        </button>
+                        
+                        <div ngbDropdownMenu> <!-- class="dropdown-menu" -->
+                            <button class="dropdown-item" *ngFor="let p of linkList"
+                                (click)="changeProfile(p.path)">
+                                {{ p.name }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <button class="btn btn-outline-dark btn-block" (click)="openNewTab()">
+                        New Tab
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Channel picker -->
+            <div class="card border-primary">
+                <h4 class="card-header border-primary bg-primary text-white text-center">
+                    Channels
+                </h4>
+                
+                <div class="card-body">
+                    <div class="form-check" *ngFor="let channel of channels;
+                        let i=index">
+                        <label class="form-check-label">
+                            <input class="form-check-input" value="channel.name" type="checkbox"
+                                [(ngModel)]="channel.checked"
+                                (click)="graphComponent.changeChannelVisibility(i)">
+                                <span [ngStyle]="{'background': channel.color}">
+                                    &nbsp;&nbsp;
+                                </span>
+                                &nbsp;{{ channel.name }}
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <div class="btn-group chnls-btn-group">
+                        <button class="btn btn-outline-dark" (click)="setAllChannels(true)">
+                            All
+                        </button>
+                        <button class="btn btn-outline-dark" (click)="setAllChannels(false)">
+                            None
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="mb-4">
+        <sc-stats [profiles]="profiles"
+            [selectedProfile]="selectedProfile"
+            [sel]="time.sel"
+            [timeUpdated]="timeUpdated">
+        </sc-stats>
+    </div>
+
+    <!-- Database query -->
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <sc-dbqry [profiles]="profiles"
+                [selectedProfile]="selectedProfile"
+                [sel]="time.sel"
+                [config]="config"
+                [filter]="filterOverride"
+                [channels]="channels">
+            </sc-dbqry>
+        </div>
+    </div>
+</div>

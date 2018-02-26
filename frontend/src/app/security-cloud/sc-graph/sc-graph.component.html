@@ -1,0 +1,104 @@
+<div class="card border-primary">
+    <h4 class="card-header border-primary bg-primary text-white text-center">
+        <!-- Modal with graph thumbnails -->
+        <sc-graph-thumbs #ThumbsComponent
+        [time]="time"
+        [selectedProfile]="selectedProfile"
+        [selectedVar]="selectedVar"
+        (onVarSelect)="changeVar($event)">
+        </sc-graph-thumbs>
+    </h4>
+
+    <div class="card-body">
+        <!-- active graph area -->
+        <sc-graph-render #RenderComponent
+            [selectedProfile]="selectedProfile"
+            [time]="time"
+            (timeChange)="handleTimeChangePropagation($event)"
+            (resolutionChange)="updateResolutionPtr($event)"
+            [selectedVar]="selectedVar"
+            [renderSettings]="renderSettings"
+            [channels]="channels"
+            [config]="config">
+        </sc-graph-render>
+    </div>
+
+    <div class="card-footer">
+        <div class="row align-items-center">
+            <!-- Render settings -->
+            <div class="col-xl-2 col-lg-6 col-md-6 text-center">
+                <div class="box">
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="renderSettings"
+                                value="line" [(ngModel)]="renderSettings"> Line
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="renderSettings"
+                                value="stacked" [(ngModel)]="renderSettings"> Stacked
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-2 col-lg-6 col-md-6">
+                <form class="form-inline">
+                    <label class="sr-only" for="DatepickerInputGroup">Datepicker</label>
+                    <div class="input-group">
+                        <input class="form-control" id="DatepickerInputGroup" placeholder="YYYY-MM-DD" name="dp"
+                            [(ngModel)]="pickerDate" ngbDatepicker #d="ngbDatepicker"
+                            (ngModelChange)="pickerChanged($event)">
+                        <div class="input-group-append cursor-pointer" (click)="d.toggle()">
+                            <div class="input-group-text">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-12">
+                <!-- Selected time box -->
+                <div class="box">
+                    {{ time.sel.bgn | date : 'y-MM-dd HH:mm' }}
+                    <span *ngIf="time.sel.bgn != time.sel.end">
+                        - {{ time.sel.end | date : 'y-MM-dd HH:mm' }}
+                    </span>
+                </div>
+            </div>
+            
+            <div class="col-xl-2 col-lg-5 col-md-5 text-center">
+                <select class="form-control" [ngModel]="selectedResolution"
+                    (ngModelChange)="renderComponent.changeResolution(true, $event)">
+                    <option *ngFor="let x of resolutionTable; let i=index" [value]="i">
+                        {{ x.label }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-xl-3 col-lg-7 col-md-7">
+                <div class="btn-group navig-group-justified">
+                    <button class="btn btn-outline-dark" (click)="renderComponent.changeTimeWindow(0)">
+                        <i class="fa fa-backward"></i>
+                    </button>
+                    <button class="btn btn-outline-dark"
+                        (click)="renderComponent.changeResolution(false, '1')">
+                        <i class="fa fa-search-minus"></i>
+                    </button>
+                    <button class="btn btn-outline-dark"
+                        (click)="renderComponent.changeResolution(false, '-1')">
+                        <i class="fa fa-search-plus"></i>
+                    </button>
+                    <button class="btn btn-outline-dark" (click)="renderComponent.changeTimeWindow(1)">
+                        <i class="fa fa-forward"></i>
+                    </button>
+                    <button class="btn btn-outline-dark" (click)="renderComponent.changeTimeWindow(2)">
+                        <i class="fa fa-step-forward"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

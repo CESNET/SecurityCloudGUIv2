@@ -1,0 +1,50 @@
+#custom-navbar .nav-item {  
+	-ms-flex-preferred-size: 0;  
+	flex-basis: 0;  
+	-webkit-box-flex: 1;  
+	-ms-flex-positive: 1;  
+	flex-grow: 1;  
+	max-width: 100%;  
+	text-align: center;
+	background: #ccc;
+}
+
+.box {
+	background: white;
+	border: 1px solid #dddddd;
+	border-radius: 4px;
+	padding: 5px;
+}
+
+.link-lookup {
+    cursor: pointer;
+    color: #0000DD !important;
+    text-decoration: underline !important;
+}
+
+:host ::ng-deep ss-multiselect-dropdown { /* https://github.com/softsimon/angular-2-dropdown-multiselect/issues/379 */
+	padding: 0;
+
+	& .dropdown {
+		width: 100%;
+
+		> ul.dropdown-menu {
+			padding: initial 5px;
+			border-radius: 5px;
+			width: 100%;
+		}
+	}
+
+	& li.dropdown-item.active > a,
+	& li.dropdown-item:active > a {
+		color: white;
+	}
+
+	& .input-group-addon {
+		padding: 5px;
+	}
+}
+
+.showCheckBox {
+    position: initial !important;
+}

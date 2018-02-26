@@ -1,0 +1,13 @@
+{
+    "apps": [
+        {
+            "assets": [],
+            "styles": [
+                "../node_modules/dygraphs/dist/dygraph.css"
+            ],
+            "scripts": [
+                "../node_modules/dygraphs/dist/dygraph.js"
+            ]
+        }
+    ]
+}

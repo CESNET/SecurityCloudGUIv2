@@ -1,0 +1,119 @@
+<ng-template #ProfileCreateModal let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">
+            Creating subprofile of {{ parentProfile.path }}
+        </h4>
+
+        <button type="button" class="close" (click)="d('reason')">
+            <span>&times;</span>
+        </button>
+    </div>
+
+    
+    <form #f="ngForm" (ngSubmit)="createProfile()">
+        <div class="modal-body">
+            <div class="row align-items-center mb-2">
+                <div class="col-sm-2">
+                    <b>Name:</b>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" [(ngModel)]="profile.name" class="form-control"
+                    name="profileName" required pattern="[a-zA-Z_][a-zA-Z_\-0-9]*">
+                </div>
+            </div>
+            
+            <div class="row align-items-center mb-2">
+                <div class="col-sm-2">
+                    <b>Type:</b>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" [(ngModel)]="profile.type" class="form-control" readonly
+                    name="profileType">
+                </div>
+            </div>
+            
+            <div class="row align-items-center mb-2">
+                <div class="col-sm-2">
+                    <b>Parent:</b>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" [value]="profile.path" readonly class="form-control">
+                </div>
+            </div>
+            
+            <div class="row align-items-center mb-2">
+                <div class="col-sm-2">
+                    <h5>Channels:</h5>
+                </div>
+                <div class="col">
+                     <div class="input-group">
+                        <input type="number" class="form-control" placeholder="Enter number of channels"
+                            [(ngModel)]="channelCount" required pattern="[1-9][0-9]*"
+                            name="channelCount">
+                        <div class="input-group-append cursor-pointer" (click)="setNofChannels()">
+                            <div class="input-group-text">
+                                Set channel count
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-danger" role="alert" *ngFor="let a of alerts">
+                <strong>Channel:</strong> {{ a.name }} - {{ a.text }}
+            </div>
+
+            <div class="channelBox">
+                <div *ngFor="let c of profile.channels; let i=index">
+                    <div class="row align-items-center mb-2">
+                        <div class="col-sm-2">
+                            <b>Name:</b>
+                        </div>
+                        <div class="col-sm-10">
+                            <input type="text" [(ngModel)]="c.name" class="form-control" required
+                            pattern="[a-zA-Z_][a-zA-Z_\-0-9]*" name="{{'channelName'+i}}">
+                        </div>
+                    </div>
+                    
+                    <div class="row align-items-center mb-2">
+                        <div class="col-sm-2">
+                            <b>Filter:</b>
+                        </div>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="4" [(ngModel)]="c.filter"
+                            name="{{'channelFilter'+i}}">
+                            </textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="row align-items-center mb-2">
+                        <div class="col-sm-2">
+                            <b>Sources:</b>
+                        </div>
+                        <div class="col-sm-10">
+                            <label *ngFor="let s of c.sources">
+                                <input type="checkbox" [(ngModel)]="s.checked"
+                                name="{{'channelCheck'+i}}">
+                                {{ s.name }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <div>
+                <button class="btn btn-outline-success" type="submit" [disabled]="!f.valid">
+                    Create profile
+                </button>
+                <button class="btn btn-outline-dark" (click)="d('reason')">Cancel</button>
+            </div>
+        </div>
+    </form>
+</ng-template>
+
+<button type="button" class="btn btn-outline-success btn-middle"
+    (click)="openModal()">
+Create subprofile
+</button>
