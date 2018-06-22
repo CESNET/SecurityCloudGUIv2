@@ -5,10 +5,10 @@
                 "build": {
                     "options": {
                         "styles": [
-                            "../node_modules/dygraphs/dist/dygraph.css"
+                            "./node_modules/dygraphs/dist/dygraph.css"
                         ],
                         "scripts": [
-                            "../node_modules/dygraphs/dist/dygraph.js"
+                            "./node_modules/dygraphs/dist/dygraph.js"
                         ],
                         "assets": []
                     }
