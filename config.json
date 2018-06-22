@@ -1,7 +1,7 @@
 {
     "dependencies": {
         "npm": "deps/package.json",
-        "ngc": "deps/.angular-cli.json",
+        "ngc": "deps/angular.json",
         "pip": "deps/requirements.txt"
     },
     "module": {
