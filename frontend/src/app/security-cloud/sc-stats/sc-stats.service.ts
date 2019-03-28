@@ -1,26 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response, URLSearchParams  } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ScStatService {
-    constructor (private http: Http) {
+    constructor (private http: HttpClient) {
     }
 
     stats(bgn: number, end: number, profilePath: string) {
-        const params: URLSearchParams = new URLSearchParams();
-        params.set('bgn', String(Math.floor(bgn / 1000)));
-        params.set('end', String(Math.floor(end / 1000)));
-        params.set('profile', profilePath);
+        const params = new HttpParams()
+            .set('bgn', String(Math.floor(bgn / 1000)))
+            .set('end', String(Math.floor(end / 1000)))
+            .set('profile', profilePath);
 
-        const requestOptions = new RequestOptions();
-        requestOptions.search = params;
-
-        return this.http.get('/scgui/stats', requestOptions).map(
-            (response: Response) => {
-                return response.json();
-            })
-            .catch(this.handleError);
+        return this.http.get('/scgui/stats', {params})
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 
     private handleError(err: Response | any) {

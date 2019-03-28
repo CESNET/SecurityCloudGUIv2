@@ -1,23 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response, URLSearchParams  } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ScProfileManagerService {
-    constructor (private http: Http) {
+    constructor (private http: HttpClient) {
     }
 
     get() {
-        const params: URLSearchParams = new URLSearchParams();
-        params.set('profile', 'all');
+        const params = new HttpParams()
+            .set('profile', 'all');
 
-        const requestOptions = new RequestOptions();
-        requestOptions.search = params;
-
-        return this.http.get('/scgui/profiles', requestOptions).map(
-            (response: Response) => {
-                return response.json();
-            }).catch(this.handleError);
+        return this.http.get('/scgui/profiles', {params})
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 
     create(parentPath: string, profileName: string, profileType: string, channelsStr: string) {
@@ -28,23 +26,20 @@ export class ScProfileManagerService {
             channels: channelsStr
         };
 
-        return this.http.post('/scgui/profiles', body).map(
-            (response: Response) => {
-                return response.json();
-            }).catch(this.handleError);
+        return this.http.post<object>('/scgui/profiles', body)
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 
     delete(profilePath: string) {
-        const params: URLSearchParams = new URLSearchParams();
-        params.set('profile', profilePath);
+        const params = new HttpParams()
+            .set('profile', profilePath);
 
-        const requestOptions = new RequestOptions();
-        requestOptions.search = params;
-
-        return this.http.delete('/scgui/profiles', requestOptions).map(
-            (response: Response) => {
-                return response.json();
-            }).catch(this.handleError);
+        return this.http.delete('/scgui/profiles', {params})
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 
     private handleError(err: Response | any) {

@@ -1,28 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response, URLSearchParams  } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ScThumbsService {
-    constructor (private http: Http) {}
+    constructor (private http: HttpClient) {}
 
     thumb(bgn: number, end: number, profilePath: string, varname: string, points: number) {
-        const params: URLSearchParams = new URLSearchParams();
-        params.set('bgn', String(Math.floor(bgn / 1000)));
-        params.set('end', String(Math.floor(end / 1000)));
-        params.set('profile', profilePath);
-        params.set('var', varname);
-        params.set('points', String(points));
-        params.set('mode', 'thumb');
+        const params = new HttpParams()
+            .set('bgn', String(Math.floor(bgn / 1000)))
+            .set('end', String(Math.floor(end / 1000)))
+            .set('profile', profilePath)
+            .set('var', varname)
+            .set('points', String(points))
+            .set('mode', 'thumb');
 
-        const requestOptions = new RequestOptions();
-        requestOptions.search = params;
 
-        return this.http.get('/scgui/graph', requestOptions).map(
-            (response: Response) => {
-                return response.json();
-            })
-            .catch(this.handleError);
+        return this.http.get('/scgui/graph', {params})
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 
     private handleError(err: Response | any) {

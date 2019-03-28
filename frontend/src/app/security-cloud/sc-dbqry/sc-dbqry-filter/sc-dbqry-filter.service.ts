@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response, URLSearchParams  } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ScDbqryFilterService {
-    constructor (private http: Http) {
+    constructor (private http: HttpClient) {
     }
 
     getFilters () {
-        return this.http.get('/scgui/query/filter').map(
-            (response: Response) => {
-                return response.json();
-            }
-        ).catch(this.handleError);
+        return this.http.get<object>('/scgui/query/filter')
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 
     saveFilter(nameStr : string, valueStr : string) {
@@ -21,26 +21,21 @@ export class ScDbqryFilterService {
             value: valueStr
         };
         
-        return this.http.post('scgui/query/filter', body).map(
-            (response: Response) => {
-                return response.json();
-            }
-        ).catch(this.handleError);
+        return this.http.post<object>('scgui/query/filter', body)
+            .pipe(
+                catchError(this.handleError)
+            );
     }
     
     deleteFilter(name : string, value : string) {
-        const params : URLSearchParams = new URLSearchParams();
-        params.set('name', name);
-        params.set('value', value);
+        const params = new HttpParams()
+            .set('name', name)
+            .set('value', value);
         
-        const requestOptions = new RequestOptions();
-        requestOptions.search = params;
-        
-        return this.http.delete('/scgui/query/filter', requestOptions).map(
-            (response: Response) => {
-                return response.json();
-            }
-        ).catch(this.handleError);
+        return this.http.delete('/scgui/query/filter', {params})
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 
     private handleError(err: Response | any) {
