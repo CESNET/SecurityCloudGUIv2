@@ -1,7 +1,7 @@
 {
     "dependencies": {
         "npm": "deps/package.json",
-        "ngc": "deps/.angular-cli.json",
+        "ngc": "deps/angular.json",
         "pip": "deps/requirements.txt"
     },
     "module": {
@@ -9,6 +9,6 @@
         "file": "sc.module.ts",
         "frontend": "frontend/src/app/security-cloud",
         "backend": "backend",
-		"name": "security-cloud"
+	"name": "security-cloud"
     }
 }

@@ -1,7 +1,6 @@
 // Global modules
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { URLSearchParams } from '@angular/http';
 import { SafeResourceUrl } from '@angular/platform-browser';
 
 import { environment } from 'environments/environment';

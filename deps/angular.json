@@ -1,0 +1,19 @@
+{
+    "projects": {
+        "liberouter-gui": {
+            "architect": {
+                "build": {
+                    "options": {
+                        "styles": [
+                            "./node_modules/dygraphs/dist/dygraph.css"
+                        ],
+                        "scripts": [
+                            "./node_modules/dygraphs/dist/dygraph.js"
+                        ],
+                        "assets": []
+                    }
+                }
+            }
+        }
+    }
+}
